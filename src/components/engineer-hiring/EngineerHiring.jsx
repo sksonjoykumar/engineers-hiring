@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../global-context/GlobalContext";
 import { Link, useParams } from "react-router-dom";
 import { BsExclamationCircle } from "react-icons/bs";
-import RelatedEngineers from "../related-doctors/RelatedEngineers";
+import RelatedEngineers from "../related-engineers/RelatedEngineers";
 
 function EngineerHiring() {
   const { engineers } = useContext(StoreContext);
