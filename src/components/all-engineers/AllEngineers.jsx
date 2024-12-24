@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../global-context/GlobalContext";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { GoDotFill } from "react-icons/go";
+import FilterButton from "../filterButton/FilterButton";
 
 function AllEngineers() {
   const { engineers } = useContext(StoreContext);
@@ -24,6 +25,16 @@ function AllEngineers() {
     applyFilterDoc();
   }, [engineers, speciality]);
 
+  // filterOptions
+  const filterOptions = [
+    "Civil Engineering",
+    "Chemical Engineering",
+    "Mechanical Engineering",
+    "Electrical Engineering",
+    "Environmental Engineering",
+    "Industrial Engineering",
+  ];
+
   return (
     <div className="px-4 md:px-20">
       <h1 className="font-outfit mt-4 text-base text-gray-800 dark:text-gray-200">
@@ -40,142 +51,36 @@ function AllEngineers() {
       </div>
       <div className="flex flex-col md:flex-row gap-7 mt-7">
         <div className=" hidden md:block">
-          <button
-            onClick={() =>
-              speciality === "Civil Engineering"
-                ? navigate("/engineers")
-                : navigate("/engineers/Civil Engineering")
-            }
-            type="button"
-            className={`font-outfit text-sm w-[150px] py-2 border dark:border-gray-800 rounded-md my-1.5 ${speciality === "Civil Engineering" ? "bg-[#5F6FFF] dark:bg-[#5F6FFF] text-white" : ""} `}
-          >
-            Civil Engineering
-          </button>
-          <button
-            onClick={() =>
-              speciality === "Chemical Engineering"
-                ? navigate("/engineers")
-                : navigate("/engineers/Chemical Engineering")
-            }
-            type="button"
-            className={`font-outfit text-sm w-[150px] py-2 border dark:border-gray-800 rounded-md my-1.5 ${speciality === "Chemical Engineering" ? "bg-[#5F6FFF] dark:bg-[#5F6FFF] text-white" : ""} `}
-          >
-            Chemical Engineering
-          </button>
-          <button
-            onClick={() =>
-              speciality === "Mechanical Engineering"
-                ? navigate("/engineers")
-                : navigate("/engineers/Mechanical Engineering")
-            }
-            type="button"
-            className={`font-outfit text-sm w-[150px] py-2 border dark:border-gray-800 rounded-md my-1.5 ${speciality === "Mechanical Engineering" ? "bg-[#5F6FFF] dark:bg-[#5F6FFF] text-white" : ""} `}
-          >
-            Mechanical Engineering
-          </button>
-          <button
-            onClick={() =>
-              speciality === "Electrical Engineering"
-                ? navigate("/engineers")
-                : navigate("/engineers/Electrical Engineering")
-            }
-            type="button"
-            className={`font-outfit text-sm w-[150px] py-2 border dark:border-gray-800 rounded-md my-1.5 ${speciality === "Electrical Engineering" ? "bg-[#5F6FFF] dark:bg-[#5F6FFF] text-white" : ""} `}
-          >
-            Electrical Engineering
-          </button>
-          <button
-            onClick={() =>
-              speciality === "Environmental Engineering"
-                ? navigate("/engineers")
-                : navigate("/engineers/Environmental Engineering")
-            }
-            type="button"
-            className={`font-outfit text-sm w-[150px] py-2 border dark:border-gray-800 rounded-md my-1.5 ${speciality === "Environmental Engineering" ? "bg-[#5F6FFF] dark:bg-[#5F6FFF] text-white" : ""} `}
-          >
-            Environmental Engineering
-          </button>
-          <button
-            onClick={() =>
-              speciality === "Industrial Engineering"
-                ? navigate("/engineers")
-                : navigate("/engineers/Industrial Engineering")
-            }
-            type="button"
-            className={`font-outfit text-sm w-[150px]  py-2 border dark:border-gray-800 rounded-md my-1.5 ${speciality === "Industrial Engineering" ? "bg-[#5F6FFF] dark:bg-[#5F6FFF] text-white" : ""} `}
-          >
-            Industrial Engineering
-          </button>
+          {filterOptions.map((option, index) => (
+            <div className="w-[180px]" key={index}>
+              <FilterButton
+                key={option}
+                label={option}
+                isActive={speciality === option}
+                onClick={() =>
+                  speciality === option
+                    ? navigate("/engineers")
+                    : navigate(`/engineers/${option}`)
+                }
+              />
+            </div>
+          ))}
         </div>
         {/* showFlitter */}
         {showFlitter && (
           <div className=" block md:hidden mb-4">
-            <button
-              onClick={() =>
-                speciality === "Civil Engineering"
-                  ? navigate("/engineers")
-                  : navigate("/engineers/Civil Engineering")
-              }
-              type="button"
-              className={`font-outfit text-sm w-full py-2 border dark:border-gray-800 rounded-md my-1.5 ${speciality === "Civil Engineering" ? "bg-[#5F6FFF] dark:bg-[#5F6FFF] text-white" : ""} `}
-            >
-              Civil Engineering
-            </button>
-            <button
-              onClick={() =>
-                speciality === "Chemical Engineering"
-                  ? navigate("/engineers")
-                  : navigate("/engineers/Chemical Engineering")
-              }
-              type="button"
-              className={`font-outfit text-sm w-full py-2 border dark:border-gray-800 rounded-md my-1.5 ${speciality === "Chemical Engineering" ? "bg-[#5F6FFF] dark:bg-[#5F6FFF] text-white" : ""} `}
-            >
-              Chemical Engineering
-            </button>
-            <button
-              onClick={() =>
-                speciality === "Mechanical Engineering"
-                  ? navigate("/engineers")
-                  : navigate("/engineers/Mechanical Engineering")
-              }
-              type="button"
-              className={`font-outfit text-sm w-full py-2 border dark:border-gray-800 rounded-md my-1.5 ${speciality === "Mechanical Engineering" ? "bg-[#5F6FFF] dark:bg-[#5F6FFF] text-white" : ""} `}
-            >
-              Mechanical Engineering
-            </button>
-            <button
-              onClick={() =>
-                speciality === "Electrical Engineering"
-                  ? navigate("/engineers")
-                  : navigate("/engineers/Electrical Engineering")
-              }
-              type="button"
-              className={`font-outfit text-sm w-full py-2 border dark:border-gray-800 rounded-md my-1.5 ${speciality === "Electrical Engineering" ? "bg-[#5F6FFF] dark:bg-[#5F6FFF] text-white" : ""} `}
-            >
-              Electrical Engineering
-            </button>
-            <button
-              onClick={() =>
-                speciality === "Environmental Engineering"
-                  ? navigate("/engineers")
-                  : navigate("/engineers/Environmental Engineering")
-              }
-              type="button"
-              className={`font-outfit text-sm w-full py-2 border dark:border-gray-800 rounded-md my-1.5 ${speciality === "Environmental Engineering" ? "bg-[#5F6FFF] dark:bg-[#5F6FFF] text-white" : ""} `}
-            >
-              Environmental Engineering
-            </button>
-            <button
-              onClick={() =>
-                speciality === "Industrial Engineering"
-                  ? navigate("/engineers")
-                  : navigate("/engineers/Industrial Engineering")
-              }
-              type="button"
-              className={`font-outfit text-sm w-full py-2 border dark:border-gray-800 rounded-md my-1.5 ${speciality === "Industrial Engineering" ? "bg-[#5F6FFF] dark:bg-[#5F6FFF] text-white" : ""} `}
-            >
-              Industrial Engineering
-            </button>
+            {filterOptions.map((option) => (
+              <FilterButton
+                key={option}
+                label={option}
+                isActive={speciality === option}
+                onClick={() =>
+                  speciality === option
+                    ? navigate("/engineers")
+                    : navigate(`/engineers/${option}`)
+                }
+              />
+            ))}
           </div>
         )}
         <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
